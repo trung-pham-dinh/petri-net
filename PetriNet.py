@@ -1,10 +1,10 @@
 
 class Place:
-    def __init__(self, tokens):
+    def __init__(self, tokens=0):
         self.tokens = tokens
 
 class Transition:
-    def __init__(self, preset, postset):
+    def __init__(self, preset=None, postset=None):
         pass
     def fire(self):
         pass
