@@ -13,7 +13,8 @@ class Place:
         self.tokens = self.tokens + amount
 
 class Transition:
-    def __init__(self, preset=None, postset=None):
+    def __init__(self, preset=[], postset=[]):
+        assert len(postset) > 0
         self.preset  = preset
         self.postset = postset
 
@@ -32,7 +33,8 @@ class Transition:
     
     
 class PetriNet:
-    def __init__(self, transition):
+    def __init__(self, transition=[]):
         self.transition = transition
+
     def run(self, firing_sequence):
         pass
