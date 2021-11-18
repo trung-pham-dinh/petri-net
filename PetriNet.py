@@ -6,6 +6,7 @@ class Place:
         return self.tokens
 
     def consume(self, amount=1):
+        assert self.tokens >= amount
         self.tokens = self.tokens - amount
 
     def produce(self, amount=1):
