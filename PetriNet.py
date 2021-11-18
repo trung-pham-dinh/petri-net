@@ -1,15 +1,38 @@
 
+from typing_extensions import Self
+
+
 class Place:
     def __init__(self, tokens=0):
         self.tokens = tokens
 
+    def tokens(self):
+        return self.tokens
+
+    def consume(self, amount=1):
+        self.tokens = self.tokens - amount
+
+    def produce(self, amount=1):
+        self.tokens = self.tokens + amount
+
 class Transition:
     def __init__(self, preset=None, postset=None):
-        pass
+        self.preset  = preset
+        self.postset = postset
+
+    def fireable(self):
+        for p in self.preset:
+            if p.tokens() == 0:
+                return False
+        return True
+
     def fire(self):
-        pass
-    def isEnabled(self):
-        pass
+        if self.fireable():
+            for p in self.preset:
+                p.consume()
+            for p in self.postset:
+                p.produce()
+    
     
 class PetriNet:
     def __init__(self, transition):
