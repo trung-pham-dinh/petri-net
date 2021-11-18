@@ -1,7 +1,3 @@
-
-from typing_extensions import Self
-
-
 class Place:
     def __init__(self, tokens=0):
         self.tokens = tokens
