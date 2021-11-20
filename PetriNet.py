@@ -2,7 +2,7 @@ class Place:
     def __init__(self, tokens=0):
         self.tokens = tokens
 
-    def tokens(self):
+    def amount(self):
         return self.tokens
 
     def consume(self, amount=1):
@@ -20,7 +20,7 @@ class Transition:
 
     def fireable(self):
         for p in self.preset:
-            if p.tokens() == 0:
+            if p.amount() == 0:
                 return False
         return True
 
