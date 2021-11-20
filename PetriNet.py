@@ -1,3 +1,4 @@
+import copy
 class Place:
     def __init__(self, name, tokens=0):
         self.tokens = tokens
@@ -47,6 +48,27 @@ class PetriNet:
             if t.fireable():
                 t.fire()
                 self.print_marking()
+            else:
+                return
+    
+    def fire_one_transition(self, trans_name): # this method is to help pass by value easier(in reachable function)
+        trans = [t for t in self.transition if t.name == trans_name]
+        trans[0].fire()
+    
+    def reachable(self):
+        self.print_marking() # initial marking
+        self.__help_reachable(copy.deepcopy(self)) # pass by value
+
+    def __help_reachable(self, petri, name=''): # depth first search
+        if name != '':
+            petri.fire_one_transition(name)
+            petri.print_marking()
+
+        enabled_list = [t.name for t in petri.transition if t.fireable()]
+        
+        for name in enabled_list:
+            self.__help_reachable(copy.deepcopy(petri), name)
+
     
     def print_marking(self):
         # first method: a little hard to trace the token

@@ -18,7 +18,11 @@ petri.print_place()
 petri.print_transition()
 petri.print_marking()
 
-print("Run")
+# print("Run")
+# petri.run([start, change, end])
+# petri.print_marking()
 
-petri.run([start, change, end])
+print("Reaachable")
+petri.reachable() # Question 4
+
 
