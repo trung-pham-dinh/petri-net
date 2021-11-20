@@ -1,7 +1,7 @@
 class Place:
-    def __init__(self, tokens=0):
+    def __init__(self, name, tokens=0):
         self.tokens = tokens
-
+        self.name = name
     def amount(self):
         return self.tokens
 
@@ -13,10 +13,11 @@ class Place:
         self.tokens = self.tokens + amount
 
 class Transition:
-    def __init__(self, preset=[], postset=[]):
+    def __init__(self, name, preset=[], postset=[]):
         assert len(postset) > 0
         self.preset  = preset
         self.postset = postset
+        self.name = name
 
     def fireable(self):
         for p in self.preset:
@@ -36,5 +37,31 @@ class PetriNet:
     def __init__(self, transition=[]):
         self.transition = transition
 
+        placelist = []
+        for t in transition:
+            placelist = placelist + t.preset + t.postset
+        self.place = list(set(placelist))
+
     def run(self, firing_sequence):
-        pass
+        for t in firing_sequence:
+            if t.fireable():
+                t.fire()
+                self.print_marking()
+    
+    def print_marking(self):
+        # first method: a little hard to trace the token
+        # tokenlist = [p.tokens for p in self.place]
+        # print(tokenlist)
+
+        # second method: more readable and easier to trace
+        tokenlist = [p.name +'^'+ str(p.tokens) for p in self.place if p.tokens]
+        print(tokenlist)
+
+    def print_place(self):
+        placelist = [p.name for p in self.place]
+        print(placelist)
+
+    def print_transition(self):
+        translist = [t.name for t in self.transition]
+        print(translist)
+    
