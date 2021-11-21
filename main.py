@@ -11,6 +11,11 @@ start  = pn.Transition('start', [free, wait], [busy, insd])
 change = pn.Transition('change', [busy, insd], [docu, done])
 end    = pn.Transition('end', [docu], [free])
 
+# this case for test the reachable marking if the petri have no deadlock
+# start  = pn.Transition('start', [free], [busy])
+# change = pn.Transition('change', [busy], [docu])
+# end    = pn.Transition('end', [docu], [free])
+
 petri = pn.PetriNet([start, change, end])
 
 print("Initial")

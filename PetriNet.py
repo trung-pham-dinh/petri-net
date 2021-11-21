@@ -56,18 +56,24 @@ class PetriNet:
         trans[0].fire()
     
     def reachable(self):
-        self.print_marking() # initial marking
-        self.__help_reachable(copy.deepcopy(self)) # pass by value
+        marking_list = []
+        marking_list.append(self.get_marking()) # initial marking
+        self.print_marking()
+        self.__help_reachable(copy.deepcopy(self), marking_list) # pass by value
 
-    def __help_reachable(self, petri, name=''): # depth first search
+    def __help_reachable(self, petri, marking_list, name=''): # depth first search
         if name != '':
             petri.fire_one_transition(name)
-            petri.print_marking()
+            if(not petri.get_marking() in marking_list):
+                petri.print_marking()
+                marking_list.append(petri.get_marking())
+            else:
+                return
 
         enabled_list = [t.name for t in petri.transition if t.fireable()]
         
         for name in enabled_list:
-            self.__help_reachable(copy.deepcopy(petri), name)
+            self.__help_reachable(copy.deepcopy(petri), marking_list, name)
 
     
     def print_marking(self):
@@ -78,6 +84,9 @@ class PetriNet:
         # second method: more readable and easier to trace
         tokenlist = [p.name +'^'+ str(p.tokens) for p in self.place if p.tokens]
         print(tokenlist)
+
+    def get_marking(self):
+        return [p.tokens for p in self.place] # for faster process of other operation
 
     def print_place(self):
         placelist = [p.name for p in self.place]
