@@ -28,6 +28,6 @@ petri.print_marking()
 # petri.print_marking()
 
 print("Reaachable")
-petri.reachable() # Question 4
+marking_list = petri.reachable() # Question 4
 
-
+print("There are", len(marking_list), "reachable markings")
