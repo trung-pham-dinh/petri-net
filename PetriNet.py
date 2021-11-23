@@ -49,7 +49,7 @@ class PetriNet:
                 t.fire()
                 self.print_marking()
             else:
-                return
+                raise PetriFiringError(t)
     
     def fire_one_transition(self, trans_name): # this method is to help pass by value easier(in reachable function)
         trans = [t for t in self.transition if t.name == trans_name]
@@ -96,3 +96,11 @@ class PetriNet:
         translist = [t.name for t in self.transition]
         print(translist)
     
+
+class PetriFiringError(Exception):
+    def __init__(self, transition):
+        self.message = transition + " is not fireable\n"
+        super().__init__(self.message)
+
+    def __str__(self) -> str:
+        return super().__str__()

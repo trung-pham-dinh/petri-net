@@ -1,7 +1,7 @@
 import PetriNet as pn
 
-free = pn.Place('free',1)
-wait = pn.Place('wait',3)
+free = pn.Place('free',3)
+wait = pn.Place('wait',10)
 busy = pn.Place('busy')
 insd = pn.Place('inside')
 docu = pn.Place('docu')
@@ -27,7 +27,7 @@ petri.print_marking()
 # petri.run([start, change, end])
 # petri.print_marking()
 
-print("Reaachable")
+print("Reachable")
 petri.reachable() # Question 4
 
 
