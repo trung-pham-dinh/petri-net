@@ -60,11 +60,12 @@ class PetriNet:
         marking_list.append(self.get_marking()) # initial marking
         self.print_marking()
         self.__help_reachable(copy.deepcopy(self), marking_list) # pass by value
+        return marking_list
 
     def __help_reachable(self, petri, marking_list, name=''): # depth first search
         if name != '':
             petri.fire_one_transition(name)
-            if(not petri.get_marking() in marking_list):
+            if not petri.get_marking() in marking_list:
                 petri.print_marking()
                 marking_list.append(petri.get_marking())
             else:
