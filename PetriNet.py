@@ -3,8 +3,6 @@ class Place:
     def __init__(self, name, tokens=0):
         self.tokens = tokens
         self.name = name
-        if tokens > PetriNet.MAXIMUM_TOKEN_ALLOWED:
-            raise PetriTokenExceedLimit(self.name)
 
     def amount(self):
         return self.tokens
@@ -22,8 +20,6 @@ class Transition:
         self.preset  = preset
         self.postset = postset
         self.name = name
-        if name == 'start' and (postset[0].amount() != postset[1].amount() or postset[0].amount() > 1 or postset[1].amount() > 1):
-            raise PetriLogicError(f"\'busy\' and \'inside\' must have equals number of tokens and both less than 2")
 
     def fireable(self):
         for p in self.preset:
@@ -110,14 +106,4 @@ class PetriNet:
 class PetriFiringError(Exception):
     def __init__(self, transition):
         self.message = f"\'{transition}\' is not fireable"
-        super().__init__(self.message)
-
-class PetriTokenExceedLimit(Exception):
-    def __init__(self, place) -> None:
-        self.message = f"\'{place}\' exceeds maximum number of tokens allowed"
-        super().__init__(self.message)
-
-class PetriLogicError(Exception):
-    def __init__(self, message) -> None:
-        self.message = message
         super().__init__(self.message)
