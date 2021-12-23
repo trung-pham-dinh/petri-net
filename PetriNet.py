@@ -75,6 +75,8 @@ class PetriNet:
                 return
 
         enabled_list = [t.name for t in petri.transition if t.fireable()]
+        if(len(enabled_list) == 0):
+            print('Terminal marking')
         
         for name in enabled_list:
             self.__help_reachable(copy.deepcopy(petri), marking_list, name)
@@ -99,8 +101,6 @@ class PetriNet:
     def print_transition(self):
         translist = [t.name for t in self.transition]
         print(translist)
-
-    MAXIMUM_TOKEN_ALLOWED = 10
     
 
 class PetriFiringError(Exception):
